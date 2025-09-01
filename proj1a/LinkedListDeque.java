@@ -24,7 +24,7 @@ public class LinkedListDeque<T> {
     }
     public void printDeque() {
         Node<T> tmp = sentinel;
-        for (int i = 0; i < size; i++) {
+        for ( int i = 0; i < size; i++) {
             tmp = tmp.next;
             System.out.print(tmp.item + " ");
 
