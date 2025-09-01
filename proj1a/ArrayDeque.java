@@ -36,7 +36,7 @@ public class ArrayDeque<T> {
         return this.size;
     }
     public void printDeque() {
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             System.out.print(this.items[(startPos + i) % capacity] + " ");
         }
     }
@@ -66,8 +66,8 @@ public class ArrayDeque<T> {
 
     /** condition == 1 --> enlarge;condition == 0 --> shrink*/
     @SuppressWarnings("unchecked")
-    private void resize(int condition){
-        if (condition == 1){
+    private void resize(int condition) {
+        if (condition == 1) {
             T[] newItems = (T[]) new Object[capacity * 2];
             for (int i = 0; i < size; i++ ) {
                 newItems[i] = items[(startPos + i) % capacity];
@@ -75,9 +75,9 @@ public class ArrayDeque<T> {
             }
             startPos = 0;
             items = newItems;
-        }else if (condition == 0) {
+        } else if (condition == 0) {
             T[] newItems = (T[]) new Object[capacity / 2];
-            for (int i = 0 ; i<size ; i++) {
+            for (int i = 0; i<size; i++) {
                 newItems[i] = items[(startPos + i) % capacity];
                 items[(startPos + i) % capacity] = null;
             }
@@ -85,7 +85,7 @@ public class ArrayDeque<T> {
             items = newItems;
         }
     }
-    private double getUsageRadio(){
+    private double getUsageRadio() {
         return size * 1.0 / capacity;
     }
 
