@@ -1,8 +1,8 @@
-import javax.swing.plaf.synth.SynthSpinnerUI;
+
 
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
-    public static void selfTest(){
+    public static void selfTest() {
         System.out.println("Running tests.\n");
 
 
@@ -14,9 +14,7 @@ public class LinkedListDequeTest {
 
         System.out.println("Test Finished");
     }
-
-	public static void main(String[] args) {
-
+    public static void main(String[] args){
         selfTest();
-	}
+    }
 }

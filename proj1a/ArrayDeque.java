@@ -42,7 +42,7 @@ public class ArrayDeque<T> {
     }
     public T removeFirst() {
         T item = null;
-        if (size > 1) {
+        if (size >= 1) {
             item = items[startPos];
             items[startPos] = null;
             startPos = (startPos + 1) % capacity;
@@ -55,7 +55,7 @@ public class ArrayDeque<T> {
     }
     public T removeLast() {
         T item = null;
-        if (size > 1) {
+        if (size >= 1) {
             item = items[(startPos + size - 1) % capacity];
             items[(startPos + size - 1) % capacity] = null;
             size -= 1;
