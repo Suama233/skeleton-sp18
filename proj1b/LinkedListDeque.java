@@ -1,0 +1,105 @@
+public class LinkedListDeque<T> implements Deque<T> {
+
+    /** saving the size of the deque as the value of the sentinel node */
+    private Node<T> sentinel;
+    private int size;
+
+    /** addition and removal should take constant time */
+    @Override
+    public void addFirst(T item) {
+        size += 1;
+        Node<T> newNode = new Node<>(item, sentinel, sentinel.next);
+        sentinel.next.prev = newNode;
+        sentinel.next = newNode;
+    }
+    @Override
+    public void addLast(T item) {
+        size += 1;
+        Node<T> newNode = new Node<>(item, sentinel.prev, sentinel);
+        sentinel.prev.next = newNode;
+        sentinel.prev = newNode;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
+    /** should take constant time*/
+    @Override
+    public int size() {
+        return size;
+    }
+    @Override
+    public void printDeque() {
+        Node<T> tmp = sentinel;
+        for (int i = 0; i < size; i++) {
+            tmp = tmp.next;
+            System.out.print(tmp.item + " ");
+
+        }
+    }
+    @Override
+    public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
+        size -= 1;
+        T item = this.sentinel.next.item;
+        this.sentinel.next = this.sentinel.next.next;
+        this.sentinel.next.prev = this.sentinel;
+        return item;
+    }
+    @Override
+    public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
+        size -= 1;
+        T item = this.sentinel.prev.item;
+        this.sentinel.prev = this.sentinel.prev.prev;
+        this.sentinel.prev.next = this.sentinel;
+        return item;
+    }
+
+    /** should only use iteration */
+    @Override
+    public T get(int index) {
+        Node<T> tmp = this.sentinel;
+        for (int i = 0; i <= index; i++) {
+            tmp = tmp.next;
+        }
+        return tmp.item;
+    }
+
+    /** creat an empty deque */
+    public LinkedListDeque() {
+        this.sentinel = new Node<>(null, null, null);
+        this.sentinel.next = this.sentinel;
+        this.sentinel.prev = this.sentinel;
+        size = 0;
+    }
+    public T getRecursive(int index) {
+        return getRecursiveNode(index, sentinel.next);
+    }
+    private T getRecursiveNode(int index, Node<T> node) {
+        if (index == 0) {
+            return node.item;
+        } else {
+            return getRecursiveNode(index - 1, node.next);
+        }
+    }
+
+
+    private static class Node<T> {
+        private T item;
+        private Node<T> prev;
+        private Node<T> next;
+
+        public Node(T it, Node<T> p, Node<T> n) {
+            this.item = it;
+            this.prev = p;
+            this.next = n;
+        }
+    }
+}
