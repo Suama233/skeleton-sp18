@@ -69,7 +69,7 @@ public class ArrayDeque<T> {
     private void resize(int condition) {
         if (condition == 1) {
             T[] newItems = (T[]) new Object[capacity * 2];
-            for (int i = 0; i < size; i++ ) {
+            for (int i = 0; i < size; i++) {
                 newItems[i] = items[(startPos + i) % capacity];
                 items[(startPos + i) % capacity] = null;
             }
@@ -77,7 +77,7 @@ public class ArrayDeque<T> {
             items = newItems;
         } else if (condition == 0) {
             T[] newItems = (T[]) new Object[capacity / 2];
-            for (int i = 0; i<size; i++) {
+            for (int i = 0; i < size; i++) {
                 newItems[i] = items[(startPos + i) % capacity];
                 items[(startPos + i) % capacity] = null;
             }
