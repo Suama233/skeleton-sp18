@@ -16,7 +16,7 @@ public class ArrayDeque<T> {
         if (getUsageRadio() >= 1) {
             resize(1);
         }
-        startPos = (startPos - 1) % capacity;
+        startPos = (capacity + startPos - 1) % capacity;
         items[startPos] = item;
         size += 1;
     }
