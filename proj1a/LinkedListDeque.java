@@ -7,7 +7,7 @@ public class LinkedListDeque<T> {
     /** addition and removal should take constant time */
     public void addFirst(T item) {
         size += 1;
-        sentinel.next = new Node<>(item,sentinel, sentinel.next);
+        sentinel.next = new Node<>(item, sentinel, sentinel.next);
     }
     public void addLast(T item) {
         size += 1;
@@ -24,7 +24,7 @@ public class LinkedListDeque<T> {
     }
     public void printDeque() {
         Node<T> tmp = sentinel;
-        for ( int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             tmp = tmp.next;
             System.out.print(tmp.item + " ");
 

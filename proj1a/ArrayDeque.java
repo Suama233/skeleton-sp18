@@ -76,7 +76,7 @@ public class ArrayDeque<T> {
             startPos = 0;
             items = newItems;
             capacity *= 2;
-        } else if (condition == 0) {
+        } else if (condition == 0 && size > 1) {
             T[] newItems = (T[]) new Object[capacity / 2];
             for (int i = 0; i < size; i++) {
                 newItems[i] = items[(startPos + i) % capacity];
