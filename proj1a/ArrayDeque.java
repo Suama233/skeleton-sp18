@@ -41,21 +41,27 @@ public class ArrayDeque<T> {
         }
     }
     public T removeFirst() {
-        T item = items[startPos];
-        items[startPos] = null;
-        startPos = (startPos + 1) % capacity;
-        size -= 1;
-        if (getUsageRadio() <= 0.25) {
-            resize(0);
+        T item = null;
+        if (size > 1) {
+            item = items[startPos];
+            items[startPos] = null;
+            startPos = (startPos + 1) % capacity;
+            size -= 1;
+            if (getUsageRadio() <= 0.25) {
+                resize(0);
+            }
         }
         return item;
     }
     public T removeLast() {
-        T item = items[(startPos + size - 1) % capacity];
-        items[(startPos + size - 1) % capacity] = null;
-        size -= 1;
-        if (getUsageRadio() <= 0.25) {
-            resize(0);
+        T item = null;
+        if (size > 1) {
+            item = items[(startPos + size - 1) % capacity];
+            items[(startPos + size - 1) % capacity] = null;
+            size -= 1;
+            if (getUsageRadio() <= 0.25) {
+                resize(0);
+            }
         }
         return item;
     }
@@ -76,7 +82,7 @@ public class ArrayDeque<T> {
             startPos = 0;
             items = newItems;
             capacity *= 2;
-        } else if (condition == 0 && size > 1) {
+        } else if (condition == 0 && size > 1) { //否则可能出现size=1后还在缩的情况
             T[] newItems = (T[]) new Object[capacity / 2];
             for (int i = 0; i < size; i++) {
                 newItems[i] = items[(startPos + i) % capacity];

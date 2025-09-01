@@ -7,11 +7,15 @@ public class LinkedListDeque<T> {
     /** addition and removal should take constant time */
     public void addFirst(T item) {
         size += 1;
-        sentinel.next = new Node<>(item, sentinel, sentinel.next);
+        Node<T> newNode = new Node<>(item, sentinel, sentinel.next);
+        sentinel.next.next.prev = newNode;
+        sentinel.next = newNode;
     }
     public void addLast(T item) {
         size += 1;
-        sentinel.prev = new Node<>(item, sentinel.prev, sentinel);
+        Node<T> newNode = new Node<>(item, sentinel.prev, sentinel);
+        sentinel.prev.prev.next = newNode;
+        sentinel.prev = newNode;
     }
 
     public boolean isEmpty() {
