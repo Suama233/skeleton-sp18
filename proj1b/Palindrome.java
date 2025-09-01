@@ -1,12 +1,12 @@
 public class Palindrome {
-    public Deque<Character> wordToDeque(String word){
+    public Deque<Character> wordToDeque(String word) {
         Deque<Character> wordDeque = new LinkedListDeque<>();
         for (int i = word.length() - 1; i >= 0; i--) {
             wordDeque.addFirst(word.charAt(i));
         }
         return wordDeque;
     }
-    public boolean isPalindrome(String word){
+    public boolean isPalindrome(String word) {
         Deque<Character> wordDeque = wordToDeque(word);
         return isPalindromeRecursion(wordDeque);
     }
