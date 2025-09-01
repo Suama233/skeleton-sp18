@@ -6,80 +6,80 @@ public class ArrayDeque<T> {
       循环是：index = (capacity + index) % capacity
      */
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         this.capacity = 2;
         this.items = (T[]) new Object[capacity];
         this.size = 0;
         this.startPos = 0;
     }
-    public void addFirst(T item){
-        if(getUsageRadio() >= 1){
+    public void addFirst(T item) {
+        if (getUsageRadio() >= 1) {
             resize(1);
         }
-        startPos = (startPos-1)%capacity;
+        startPos = (startPos - 1) % capacity;
         items[startPos] = item;
-        size+=1;
+        size += 1;
     }
-    public void addLast(T item){
-        if(getUsageRadio() >= 1){
+    public void addLast(T item) {
+        if (getUsageRadio() >= 1) {
             resize(1);
         }
-        items[(startPos+size-1)%capacity] = item;
-        size+=1;
+        items[(startPos + size - 1) % capacity] = item;
+        size += 1;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return this.size == 0;
     }
 
-    public int size(){
+    public int size() {
         return this.size;
     }
-    public void printDeque(){
-        for(int i = 0;i<size;i++){
-            System.out.print(this.items[(startPos + i)%capacity]+" ");
+    public void printDeque() {
+        for(int i = 0; i < size; i++){
+            System.out.print(this.items[(startPos + i) % capacity] + " ");
         }
     }
-    public T removeFirst(){
+    public T removeFirst() {
         T item = items[startPos];
         items[startPos] = null;
-        startPos = (startPos+1)%capacity;
-        size-=1;
-        if(getUsageRadio() <=0.25){
+        startPos = (startPos + 1) % capacity;
+        size -= 1;
+        if (getUsageRadio() <= 0.25) {
             resize(0);
         }
         return item;
     }
-    public T removeLast(){
-        T item = items[(startPos+size-1)%capacity];
-        items[(startPos+size-1)%capacity] = null;
+    public T removeLast() {
+        T item = items[(startPos + size - 1) % capacity];
+        items[(startPos + size - 1) % capacity] = null;
         size -= 1;
-        if(getUsageRadio() <=0.25){
+        if (getUsageRadio() <= 0.25) {
             resize(0);
         }
         return item;
     }
 
-    public T get(int index){
-        return items[(startPos+index)%capacity];
+    public T get(int index) {
+        return items[(startPos + index) % capacity];
     }
 
     /** condition == 1 --> enlarge;condition == 0 --> shrink*/
     @SuppressWarnings("unchecked")
     private void resize(int condition){
-        if(condition == 1){
-            T[] newItems = (T[]) new Object[capacity*2];
-            for(int i = 0;i<size;i++){
-                newItems[i] = items[(startPos+i)%capacity];
-                items[(startPos+i)%capacity] = null;
+        if (condition == 1){
+            T[] newItems = (T[]) new Object[capacity * 2];
+            for (int i = 0; i < size; i++ ) {
+                newItems[i] = items[(startPos + i) % capacity];
+                items[(startPos + i) % capacity] = null;
             }
             startPos = 0;
             items = newItems;
-        }else if(condition == 0){
-            T[] newItems = (T[]) new Object[capacity/2];
-            for(int i = 0;i<size;i++){
-                newItems[i] = items[(startPos+i)%capacity];
-                items[(startPos+i)%capacity] = null;
+        }else if (condition == 0) {
+            T[] newItems = (T[]) new Object[capacity / 2];
+            for (int i = 0 ; i<size ; i++) {
+                newItems[i] = items[(startPos + i) % capacity];
+                items[(startPos + i) % capacity] = null;
             }
             startPos = 0;
             items = newItems;

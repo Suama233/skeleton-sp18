@@ -2,29 +2,29 @@ public class LinkedListDeque<T> {
 
     /** saving the size of the deque as the value of the sentinel node */
     private Node<T> sentinel;
-    int size;
+    private int size;
 
     /** addition and removal should take constant time */
-    public void addFirst(T item){
+    public void addFirst(T item) {
         size += 1;
         sentinel.next = new Node<>(item,sentinel,sentinel.next);
     }
-    public void addLast(T item){
+    public void addLast(T item) {
         size += 1;
         sentinel.prev = new Node<>(item,sentinel.prev,sentinel);
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return this.size == 0;
     }
 
     /** should take constant time*/
-    public int size(){
+    public int size() {
         return size;
     }
-    public void printDeque(){
+    public void printDeque() {
         Node<T> tmp = sentinel;
-        for(int i = 0;i < size; i ++){
+        for(int i = 0; i < size; i ++){
             tmp = tmp.next;
             System.out.print(tmp.item + " ");
 
@@ -46,34 +46,34 @@ public class LinkedListDeque<T> {
     }
 
     /** should only use iteration */
-    public T get(int index){
+    public T get(int index) {
         Node<T> tmp = this.sentinel;
-        for(int i = 0;i <= index;i++){
+        for(int i = 0; i <= index; i++){
             tmp = tmp.next;
         }
         return tmp.item;
     }
 
     /** creat an empty deque */
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         this.sentinel = new Node<>(null,null,null);
         this.sentinel.next = this.sentinel;
         this.sentinel.prev = this.sentinel;
         size = 0;
     }
-    public T getRecursive(int index){
+    public T getRecursive(int index) {
         return getRecursiveNode(index,sentinel.next);
     }
-    private T getRecursiveNode(int index,Node<T> node){
-        if(index == 0){
+    private T getRecursiveNode(int index,Node<T> node) {
+        if (index == 0) {
             return node.item;
-        }else{
-            return getRecursiveNode(index-1,node.next);
+        }else {
+            return getRecursiveNode(index - 1,node.next);
         }
     }
 
 
-    private static class Node<T>{
+    private static class Node<T> {
         public T item;
         public Node<T> prev;
         public Node<T> next;
