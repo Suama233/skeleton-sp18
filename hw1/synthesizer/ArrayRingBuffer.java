@@ -32,7 +32,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     @Override
     public void enqueue(T x) {
-        // TODO: Enqueue the item. Don't forget to increase fillCount and update last.
+
         if (this.isFull()) {
             throw new RuntimeException("The queue is full.");
         }
@@ -48,7 +48,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     @Override
     public T dequeue() {
-        // TODO: Dequeue the first item. Don't forget to decrease fillCount and update
+
         if (this.isEmpty()) {
             throw new RuntimeException("The queue is empty.");
         }
