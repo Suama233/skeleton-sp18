@@ -17,10 +17,10 @@ public class TestArrayDequeGold {
         * 3 removeLast*/
         int code = -1;
         // Number for addition
-        int numAdd = -1;
+        Integer numAdd = -1;
         // Get number removed
-        int rANumRemoveRA = -1;
-        int wANumRemove = -1;
+        Integer rANumRemoveRA = -1;
+        Integer wANumRemove = -1;
         // To prevent infinite looping
         int numMaxOperation = 10000;
         //To record current operations
