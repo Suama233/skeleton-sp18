@@ -1,5 +1,5 @@
 package synthesizer;
-import org.junit.Test;
+
 
 import java.util.Iterator;
 
@@ -18,11 +18,6 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     @SuppressWarnings("unchecked")
     public ArrayRingBuffer(int capacity) {
-        // TODO: Create new array with capacity elements.
-        //       first, last, and fillCount should all be set to 0.
-        //       this.capacity should be set appropriately. Note that the local variable
-        //       here shadows the field we inherit from AbstractBoundedQueue, so
-        //       you'll need to use this.capacity to set the capacity.
         this.capacity = capacity;
         this.rb = (T[]) new Object[capacity];
         this.first = 0;
@@ -69,14 +64,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     @Override
     public T peek() {
-        // TODO: Return the first item. None of your instance variables should change.
         if (isEmpty()) {
             throw new RuntimeException("Ring buffer is empty");
         }
         return this.rb[first];
     }
 
-    // TODO: When you get to part 5, implement the needed code to support iteration.
     @Override
     public Iterator<T> iterator() {
         return new ArrayRingBufferIterator();
@@ -95,7 +88,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         }
 
         @Override
-        public T next(){
+        public T next() {
             T item = rb[wizPos];
             wizPos = (wizPos + 1) % capacity;
             return item;
