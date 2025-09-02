@@ -51,11 +51,11 @@ public class TestArrayDequeGold {
                 if (code == 2) {
                     rANumRemoveRA = rA.removeFirst();
                     wANumRemove = wA.removeFirst();
-                    log = log + "removeFirst\n";
+                    log = log + "removeFirst()\n";
                 } else {
                     rANumRemoveRA = rA.removeLast();
                     wANumRemove = wA.removeLast();
-                    log = log + "removeLast\n";
+                    log = log + "removeLast()\n";
                 }
                 assertEquals(log,rANumRemoveRA,wANumRemove);
             }
