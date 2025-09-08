@@ -2,13 +2,56 @@ package lab9tester;
 
 import static org.junit.Assert.*;
 
+import lab9.Map61B;
 import org.junit.Test;
 import lab9.MyHashMap;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Tests by Brendan Hu, Spring 2015, revised for 2018 by Josh Hug
  */
 public class TestMyHashMap {
+
+    @Test
+    public void getKeySetTest() {
+        Map61B<String, Integer> b = new MyHashMap<String, Integer>();
+        for (int i = 0; i < 455; i++) {
+            b.put("hi" + i, 1);
+        }
+        Set<String> keySet = b.keySet();
+        for (int i = 0; i < 455; i++) {
+            assertTrue(keySet.contains("hi" + i));
+        }
+    }
+
+    @Test
+    public void removeTest() {
+        MyHashMap<String, Integer> b = new MyHashMap<String, Integer>();
+        for (int i = 0; i < 455; i++) {
+            b.put("hi" + i, i);
+        }
+
+        for (int i = 0; i < 455; i++) {
+            int val = b.remove("hi" + i);
+            assertEquals(i,val);
+        }
+    }
+
+    @Test
+    public void removeWithValueTest() {
+        MyHashMap<String, Integer> b = new MyHashMap<String, Integer>();
+        for (int i = 0; i < 455; i++) {
+            b.put("hi" + i, i);
+        }
+
+        for (int i = 0; i < 455; i++) {
+            int val = b.remove("hi" + i, i);
+            assertEquals(i,val);
+        }
+    }
+
 
     @Test
     public void sanityGenericsTest() {

@@ -1,5 +1,6 @@
 package lab9;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
-    private static final int DEFAULT_SIZE = 4;
+    private static final int DEFAULT_SIZE = 16;
     private static final double MAX_LF = 0.75;
 
     private ArrayMap<K, V>[] buckets;
@@ -103,7 +104,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> kSet = new HashSet<>();
+        for (int i = 0; i < buckets.length; i++) {
+            for (K key : buckets[i]) {
+                kSet.add(key);
+            }
+        }
+        return kSet;
     }
 
     /* Removes the mapping for the specified key from this map if exists.
@@ -111,8 +118,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * UnsupportedOperationException. */
     @Override
     public V remove(K key) {
-        //for (int )
-        throw new UnsupportedOperationException();
+        int hashCode = hash(key);
+        if (!(hashCode < this.buckets.length && this.buckets[hashCode].containsKey(key))) {
+            return null;
+        }
+        V val = buckets[hashCode].get(key);
+        buckets[hashCode].remove(key);
+        return val;
     }
 
     /* Removes the entry for the specified key only if it is currently mapped to
@@ -120,7 +132,16 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * throw an UnsupportedOperationException.*/
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        int hashCode = hash(key);
+        if (!(hashCode < this.buckets.length && this.buckets[hashCode].containsKey(key))) {
+            return null;
+        }
+        V val = buckets[hashCode].get(key);
+        if (!val.equals(value)) {
+            return null;
+        }
+        buckets[hashCode].remove(key);
+        return val;
     }
 
     @Override

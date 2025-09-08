@@ -2,13 +2,54 @@ package lab9tester;
 
 import static org.junit.Assert.*;
 
+import lab9.MyHashMap;
 import org.junit.Test;
 import lab9.BSTMap;
+
+import java.util.Set;
 
 /**
  * Tests by Brendan Hu, Spring 2015, revised for 2018 by Josh Hug
  */
 public class TestBSTMap {
+
+    @Test
+    public void getKeySetTest() {
+        BSTMap<String, Integer> b = new BSTMap<String, Integer>();
+        for (int i = 0; i < 455; i++) {
+            b.put("hi" + i, 1);
+        }
+        Set<String> keySet = b.keySet();
+        for (int i = 0; i < 455; i++) {
+            assertTrue(keySet.contains("hi" + i));
+        }
+    }
+
+    @Test
+    public void removeTest() {
+        BSTMap<String, Integer> b = new BSTMap<String, Integer>();
+        for (int i = 0; i < 455; i++) {
+            b.put("hi" + i, i);
+        }
+
+        for (int i = 0; i < 455; i++) {
+            int val = b.remove("hi" + i);
+            assertEquals(i,val);
+        }
+    }
+
+    @Test
+    public void removeWithValueTest() {
+        BSTMap<String, Integer> b = new BSTMap<String, Integer>();
+        for (int i = 0; i < 455; i++) {
+            b.put("hi" + i, i);
+        }
+
+        for (int i = 0; i < 455; i++) {
+            int val = b.remove("hi" + i, i);
+            assertEquals(i,val);
+        }
+    }
 
     @Test
     public void sanityGenericsTest() {
