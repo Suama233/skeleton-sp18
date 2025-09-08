@@ -11,14 +11,14 @@ import java.util.Set;
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
-    private static final int DEFAULT_SIZE = 16;
+    private static final int DEFAULT_SIZE = 4;
     private static final double MAX_LF = 0.75;
 
     private ArrayMap<K, V>[] buckets;
     private int size;
 
-    private int loadFactor() {
-        return size / buckets.length;
+    private double loadFactor() {
+        return 1.0 * size / buckets.length;
     }
 
     public MyHashMap() {
@@ -53,19 +53,49 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        int hashCode = hash(key);
+        return this.buckets[hashCode].get(key);
+    }
+
+    private void resize() {
+        ArrayMap<K, V>[] oldBuckets = this.buckets;
+        this.buckets = new ArrayMap[buckets.length * 2];
+        //int tmpSize = this.size;
+        for (int i = 0;i < this.buckets.length; i++) {
+            this.buckets[i] = new ArrayMap<>();
+        }
+
+        for (int i = 0;i < oldBuckets.length; i++) {
+            if (!oldBuckets[i].keySet().isEmpty()) {
+                for (K tmpKey : oldBuckets[i]) {
+                    this.buckets[hash(tmpKey)].put(tmpKey, oldBuckets[i].get(tmpKey));
+                }
+            }
+        }
+        //this.size = tmpSize;
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        int hashCode = hash(key);
+
+        if (!buckets[hashCode].containsKey(key)) {
+            size++;
+        }
+
+        buckets[hashCode].put(key,value);
+
+        if (loadFactor() > MAX_LF) {
+            resize();
+        }
+
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return this.size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
@@ -81,6 +111,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * UnsupportedOperationException. */
     @Override
     public V remove(K key) {
+        //for (int )
         throw new UnsupportedOperationException();
     }
 

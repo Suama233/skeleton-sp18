@@ -5,9 +5,9 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 public class TerrainBrush {
-
-    private static final int DEMO_WIDTH = 30;
-    private static final int DEMO_HEIGHT = 30;
+    //width 95 and height 47 should be the max size for this screen
+    private static final int DEMO_WIDTH = 95;
+    private static final int DEMO_HEIGHT = 47;
 
 
     private static void addHexagonHelperUp(TETile[][] tiles, int hexSize, int x, int y, int rank) {
@@ -57,8 +57,9 @@ public class TerrainBrush {
         int rank = 0;
         addHexagonHelperUp(tiles, hexSize, xDR, yDR + 2 * hexSize - 1, rank);
         addHexagonHelperDown(tiles, hexSize, xDR, yDR, rank);
-
     }
+
+
     public static void main(String[] args) {
         TERenderer ter = new TERenderer();
         ter.initialize(DEMO_WIDTH,DEMO_HEIGHT);
@@ -70,12 +71,11 @@ public class TerrainBrush {
                 tiles[x][y] = Tileset.NOTHING;
             }
         }
-        tiles[0][0] = Tileset.WALL;
-        tiles[0][DEMO_HEIGHT - 1] = Tileset.FLOWER;
-        tiles[DEMO_WIDTH - 1][0] = Tileset.WATER;
-        addHexagon(tiles, 2, 9, 0);
-        addHexagon(tiles, 5, 15, 15);
-        addHexagon(tiles, 6, -5, 12);
+        tiles[0][0] = Tileset.DEBUG_BOUNDARY;
+        tiles[0][DEMO_HEIGHT - 1] = Tileset.DEBUG_BOUNDARY;
+        tiles[DEMO_WIDTH - 1][0] = Tileset.DEBUG_BOUNDARY;
+        tiles[DEMO_WIDTH - 1][DEMO_HEIGHT - 1] = Tileset.DEBUG_BOUNDARY;
+
 
 
         ter.renderFrame(tiles);
