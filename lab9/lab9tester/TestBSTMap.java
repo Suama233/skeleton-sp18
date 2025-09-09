@@ -127,6 +127,48 @@ public class TestBSTMap {
         assertTrue(b.get("hi") != null);
     }
 
+    @Test
+    public void removeEdgeCasesTest() {
+        BSTMap<Integer, String> b = new BSTMap<>();
+
+        b.put(5, "root");
+        b.put(3, "left");
+        b.put(7, "right");
+        b.put(2, "left.left");
+        b.put(4, "left.right");
+        b.put(6, "right.left");
+
+        // 删除叶子节点（2）
+        String val = b.remove(2);
+        assertEquals("left.left", val);
+        assertFalse(b.containsKey(2));
+
+        // 删除只有一个子节点的节点（7 -> 只有左孩子 6）
+        val = b.remove(7);
+        assertEquals("right", val);
+        assertFalse(b.containsKey(7));
+        assertTrue(b.containsKey(6));
+
+        // 删除有两个子节点的节点（3 -> 左孩子 null, 右孩子 4）
+        val = b.remove(3);
+        assertEquals("left", val);
+        assertFalse(b.containsKey(3));
+        assertTrue(b.containsKey(4));
+
+        // 删除 root（5 -> 现在有左=4，右=6）
+        val = b.remove(5);
+        assertEquals("root", val);
+        assertFalse(b.containsKey(5));
+        assertTrue(b.containsKey(4));
+        assertTrue(b.containsKey(6));
+
+        // 删除不存在的 key
+        val = b.remove(100);
+        assertNull(val);
+    }
+
+
+
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(TestBSTMap.class);
     }
