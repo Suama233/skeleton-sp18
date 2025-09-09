@@ -137,48 +137,62 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         return keySet;
     }
 
+    private Node removeHelper(Node curr, K key, removeBox<V> val) {
+        if (curr == null) {
+            return null;
+        }
+        if (curr.key.compareTo(key) < 0) {
+            curr.right = removeHelper(curr.right, key, val);
+        } else if (curr.key.compareTo(key) > 0) {
+            curr.left = removeHelper(curr.left, key, val);
+        } else {
+            val.val = curr.value;
+            if (curr.left == null && curr.right == null) {
+                return null;
+            } else if (curr.left != null && curr.right == null) {
+                return curr.left;
+            } else if (curr.left == null && curr.right != null) {
+                return curr.right;
+            } else {
+                Node nextNode = curr.right;
+
+                while (nextNode.left != null) {
+                    nextNode = nextNode.left;
+                }
+                curr.key = nextNode.key;
+                curr.value = nextNode.value;
+                curr.right = removeHelper(curr.right, nextNode.key, val);
+            }
+
+        }
+        return curr;
+    }
+
     /** Removes KEY from the tree if present
      *  returns VALUE removed,
      *  null on failed removal.
      */
     @Override
     public V remove(K key) {
-        Node pos = root;
-        V val = null;
-        while (pos != null) {
-            if (key.compareTo(pos.key) < 0) {
-                pos = pos.left;
-            } else if (key.compareTo(pos.key) > 0) {
-                pos = pos.right;
-            } else {
-                val = pos.value;
-                break;
-            }
-        }
-        return val;
-    }
+        removeBox<V> val = new removeBox<>();
+        Node currNode = root;
 
+        root = removeHelper(currNode,key,val);
+        return val.val;
+    }
+    private class removeBox<T> {
+        public T val;
+    }
     /** Removes the key-value entry for the specified key only if it is
      *  currently mapped to the specified value.  Returns the VALUE removed,
      *  null on failed removal.
      **/
     @Override
     public V remove(K key, V value) {
-        Node pos = root;
-        V val = null;
-        while (pos != null) {
-            if (key.compareTo(pos.key) < 0) {
-                pos = pos.left;
-            } else if (key.compareTo(pos.key) > 0) {
-                pos = pos.right;
-            } else {
-                if (value.equals(pos.value)) {
-                    val = pos.value;
-                }
-                break;
-            }
+        if (remove(key) != null && remove(key) == value) {
+            return value;
         }
-        return val;
+        return null;
     }
 
     @Override
